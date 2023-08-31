@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau Dynamique</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label, input, button {
+            margin: 5px;
+        }
+
+        #container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Tableau Dynamique</h1>
+        <table id="myTable">
+            <tr>
+                <th>ID</th>
+            </tr>
+        </table>
+
+        <form id="myForm">
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id">
+            <button type="button" id="addButton">Ajouter</button>
+        </form>
+    </div>
+
+    <script>
+        const table = document.getElementById("myTable");
+        const form = document.getElementById("myForm");
+        const addButton = document.getElementById("addButton");
+
+        const data = [];
+
+        addButton.addEventListener("click", () => {
+            const id = document.getElementById("id").value;
+
+            if (id) {
+                data.push({ id });
+                data.sort((a, b) => a.id.localeCompare(b.id));
+                renderTable();
+                clearForm();
+            }
+        });
+
+        function renderTable() {
+            table.innerHTML = `
+                <tr>
+                    <th>ID</th>
+                </tr>
+                ${data.map(entry => `<tr><td>${entry.id}</td></tr>`).join("")}
+            `;
+        }
+
+        function clearForm() {
+            document.getElementById("id").value = "";
+        }
+    </script>
+
+</body>
+</html>
